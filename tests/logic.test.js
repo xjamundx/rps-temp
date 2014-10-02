@@ -6,6 +6,7 @@ describe('rock paper scissors logic', function() {
 
 	it('should exist', function() {
 		var logic = require('../lib/logic');
+		assert.ok(logic);
 	});
 
 	it('should allow me to fetch some possible challenges', function() {
@@ -58,7 +59,7 @@ describe('rock paper scissors logic', function() {
 			logic.challenge(null, moves[1]);
 		}, 'null is not a valid challenge');
 		assert.throws(function() {
-			logic.challenge("toString", moves[1]);
+			logic.challenge('toString', moves[1]);
 		}, 'you cannot trick the object into a string');
 	});
 

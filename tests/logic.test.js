@@ -1,6 +1,6 @@
 var assert = require('assert');
 
-describe('tic-tac-toe logic', function() {
+describe('rock paper scissors logic', function() {
 	it('should exist', function() {
 		var logic = require('../lib/logic');
 	});

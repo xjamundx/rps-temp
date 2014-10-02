@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha -R spec tests/"
+    "test": "mocha -R spec tests/*.test.js"
   },
   "author": "Jamund Ferguson",
   "license": "ISC",

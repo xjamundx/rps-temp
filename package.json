@@ -1,0 +1,17 @@
+{
+  "name": "rock-paper-scissors",
+  "version": "0.0.0",
+  "description": "simple game of rock, paper, scissors",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "mocha -R spec tests/"
+  },
+  "author": "Jamund Ferguson",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^1.21.4"
+  }
+}

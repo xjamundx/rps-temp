@@ -34,4 +34,30 @@ describe('rock paper scissors logic', function() {
 		assert.ok(!winner, 'this should have been a tie');
 	});
 
+	it('should probably not allow you to send in false challenges', function() {
+		var logic = require('../lib/logic');
+		var moves = logic.getChallenges();
+		assert.throws(function() {
+			logic.challenge(12312, 11234567);
+		}, 'a number is not a valid challenge');
+		assert.throws(function() {
+			logic.challenge('kljjkljklsjklskj', 'sdlkjsdjkldfsjkflsdjlkfdsjflsd');
+		}, 'a random string is not a valid challenge');
+		assert.throws(function() {
+			logic.challenge(false, moves[1]);
+		}, 'false is not a valid challenge');
+		assert.throws(function() {
+			logic.challenge();
+		}, 'undefined is not a valid challenge (even for a tie)');
+		assert.throws(function() {
+			logic.challenge({}, moves[0]);
+		}, 'empty object is not a valid challenge');
+		assert.throws(function() {
+			logic.challenge(null, moves[1]);
+		}, 'null is not a valid challenge');
+		assert.throws(function() {
+			logic.challenge("toString", moves[1]);
+		}, 'you cannot trick the object into a string');
+	});
+
 });

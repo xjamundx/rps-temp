@@ -7,11 +7,12 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha -R spec tests/*.test.js"
+    "test": "mocha -R spec tests/*.test.js; eslint */*.js"
   },
   "author": "Jamund Ferguson",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^0.8.2",
     "mocha": "^1.21.4"
   }
 }

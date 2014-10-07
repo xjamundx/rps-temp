@@ -1,13 +1,17 @@
 {
   "name": "rock-paper-scissors",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "simple game of rock, paper, scissors",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha -R spec tests/*.test.js; eslint */*.js"
+    "test": "mocha -R spec tests/*.test.js; eslint tests/*.js lib/*.js *.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xjamundx/rps-temp.git"
   },
   "author": "Jamund Ferguson",
   "license": "ISC",

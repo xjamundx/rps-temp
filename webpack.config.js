@@ -6,7 +6,7 @@ module.exports = {
 	},
 	module: {
 		loaders: [
-			{ test: /\.jpg$/, loader: "url" },
+			{ test: /\.jpg$/, loader: 'url' },
 			{ test: /\.less$/, loaders: ['style', 'css', 'less'] } // use ! to chain loaders
 		]
 	}

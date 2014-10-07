@@ -1,65 +1,18 @@
 'use strict';
 
+// require css
 require('./css/style.less');
 
-// setup the game
+// require js
 var Game = require('./lib/game');
+var Arena = require('./lib/arena');
+
+// setup the game
 var game = new Game({type: 'computer'});
+var arena = new Arena();
 
-// setup the game element
-var gameElement = document.querySelector('[data-game]');
-
-// add the heading part
-var heading = document.createElement('h1');
-heading.textContent = 'Rock, Paper, Scissors';
-gameElement.appendChild(heading);
-
-// add the arena part
-var arena = document.createElement('div');
-arena.className = 'arena';
-gameElement.appendChild(arena);
-var text = document.createElement('p');
-text.textContent = 'Choose a move to play!';
-text.className = 'text-challenge';
-arena.appendChild(text);
-
-/**
- * Get arena class name based on results of the challenge.
- * @param success
- * @param tie
- * @returns {string}
- */
-
-function getArenaClassName(success, tie) {
-	var className =  'arena';
-	if (success) {
-		className += ' arena-win';
-	} else if (tie) {
-		className += ' arena-tie';
-	} else {
-		className += ' arena-loss';
-	}
-	return className;
-}
-
-/**
- * Generate a results message from the response callback data.
- * @param {Object} data
- * @param {Game.Challenge} data.opponent
- * @param {Boolean} data.tie
- * @param {Boolean} data.success
- * @returns {string}
- */
-function getResultMessage(data) {
-	var msg = 'You lost to';
-	if (data.success) {
-		msg = 'You beat';
-	} else if (data.tie) {
-		msg = 'You tied';
-	}
-	msg += ' ' + data.opponent.name + '!';
-	return msg;
-}
+// DOM elements setup at the bottom
+var gameElement, heading;
 
 /**
  * Handle challenge responses
@@ -73,52 +26,51 @@ function handleChallengeResponse(err, data) {
 
 	// check for server errors and other strange things
 	if (err) {
-		arena.textContent = 'Unable to retrieve results of challenge. Please try again.';
+		arena.setMessage('Unable to retrieve results of challenge. Please try again.');
 		return;
 	}
 
-	// update the arena color based on the result
-	arena.className = getArenaClassName(data.success, data.tie);
-
-	// show a message based on the result
-	var msg = getResultMessage(data);
-	var existingText = document.querySelector('.text-challenge');
-	var p = existingText ? existingText : document.createElement('p');
-	p.textContent = msg;
-	if (!p) {
-		p.className = 'text-challenge';
-		arena.appendChild(p);
-	}
-
-	// update an existing image or add a new one
-	var existingImg = document.querySelector('.img-challenge');
-	var img = existingImg ? existingImg : new Image();
-	img.src = data.opponent.imageUrl;
-	if (!existingImg) {
-		img.className = 'img-challenge';
-		arena.appendChild(img);
-	}
+	// update the arena based on the results
+	arena.setWinner(data);
+	arena.setMessage(data);
+	arena.setImage(data.opponent);
 }
 
 /**
- * Challenge the opponent.
- * @param {Game.Challenge} challenge
+ * Setup an individual challenge option in the nav.
+ * @param challenge
  */
-function playChallenge(challenge) {
-	game.challenge(challenge, handleChallengeResponse);
-}
-
-// provide the challenges
-var challenges = game.getChallenges();
-var frag = document.createDocumentFragment();
-var nav = document.createElement('nav');
-nav.className = 'nav';
-challenges.forEach(function(challenge) {
+function setupChallenge(nav, challenge) {
 	var button = document.createElement('button');
 	button.className = 'button-icon button-icon-' + challenge.name;
 	button.textContent = challenge.name;
-	button.onclick = playChallenge.bind(null, challenge); // pass through the challenge
+	button.onclick = game.challenge.bind(game, challenge, handleChallengeResponse); // pass through the challenge
 	nav.appendChild(button);
-});
-frag.appendChild(nav);
-gameElement.appendChild(frag);
+}
+
+/**
+ * Setup the challenges inside the navigation;
+ */
+function setupNav() {
+	var challenges = game.getChallenges();
+	var frag = document.createDocumentFragment();
+	var challengeNav = document.createElement('nav');
+	challengeNav.className = 'nav nav-challenges';
+	challenges.forEach(setupChallenge.bind(null, challengeNav));
+	frag.appendChild(challengeNav);
+	gameElement.appendChild(frag);
+}
+
+// find our base tag
+gameElement = document.querySelector('[data-game]');
+
+// setup the heading
+heading = document.createElement('h1');
+heading.textContent = 'Rock, Paper, Scissors';
+gameElement.appendChild(heading);
+
+// add the arena element
+gameElement.appendChild(arena.getElement());
+
+// setup and store the navigation
+setupNav();

@@ -2,7 +2,8 @@ Rock Paper Scissors
 
 This is a simple rock paper scissors game.
 
-You can play it here
+You can play it here:
+http://xjamundx.github.io/rps-temp/
 
 It should work reasonably well in the following browsers:
 - Firefox

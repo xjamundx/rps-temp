@@ -1,15 +1,12 @@
 @payPalColor: #009cde;
+@happy: green;
+@sad: maroon;
+@meh: gray;
 
 body {
 	background: @payPalColor;
 	font-family: sans-serif;
 	text-align: center;
-}
-
-.arena {
-	background: url("../images/woodgrain.jpg");
-	padding: 10px;
-	border-radius: 10px;
 }
 
 .nav > .button-icon {
@@ -28,7 +25,16 @@ body {
 	line-height: 170px;
 }
 
+.button-icon::-moz-focus-inner {
+	border: 0;
+}
+
 .button-icon:hover {
+	box-shadow: 0 0 6px @payPalColor;
+}
+
+.button-icon:focus {
+	outline: none;
 	box-shadow: 0 0 10px black;
 }
 
@@ -45,4 +51,29 @@ body {
 // http://www.tweezerman.com/uploaded_files/images/products/b_6320733628686da67fde9e36922355287200_Scissors.jpg
 .button-icon-scissors {
 	background-image: url("../images/scissors.jpg");
+}
+
+// the images found in the arena area
+.img-challenge {
+	width: 200px;
+	height: 200px;
+}
+
+// the arena & its various states
+.arena {
+	background: url("../images/woodgrain.jpg");
+	padding: 10px;
+	border-radius: 10px;
+}
+
+.arena-loss {
+	background: @sad;
+}
+
+.arena-win {
+	background: @happy;
+}
+
+.arena-tie {
+	background: auto;
 }

@@ -27,7 +27,18 @@ function playChallenge(challenge) {
 			arena.textContent = "Unable to retrieve results of challenge. Please try again.";
 			return;
 		}
-		arena.textContent = data.success ? 'You Won!' : 'You Lost!';
+
+		// generate an interesting message
+		var msg = 'You lost to';
+		if (data.success) {
+			msg = 'You beat';
+		} else if (data.tie) {
+			msg = 'You tied';
+		}
+		msg + ' ' + data.opponent.name + '!';
+
+		// display said message
+		arena.textContent = msg;
 	});
 }
 

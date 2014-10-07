@@ -45,6 +45,10 @@ describe('rock paper scissors game', function() {
 			assert.ok('success' in data); // we may have won or lost
 			assert.ok('opponent' in data); // we need to know who we played
 			assert.ok('tie' in data); // we need to know if it was a tie or not
+
+			// check to make sure the data structure make sense
+			assert.equal(typeof data.tie, 'boolean');
+			assert.equal(typeof data.success, 'boolean');
 			assert.ok(isChallenge(data.opponent), 'the opponent object should be filled with info about my challenger');
 		}
 

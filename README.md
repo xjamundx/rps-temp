@@ -29,6 +29,7 @@ It should also work fine with just a keyboard and no mouse.
 
 ### Todo
 
+- Implement testing of the view layer (possibly via JSDom)
 - Possibly implement a templating system (or further modularize front-end code)
 - Win/Loss Count (localStorage backed)
 - Interactive multi-player Mode (Using socket.io or firebase)
